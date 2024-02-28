@@ -1,43 +1,65 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MiListaCard());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
+class MiListaCard extends StatelessWidget {
+  const MiListaCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      debugShowCheckedModeBanner: false,
+      title: "App ListView Beltran",
       theme: ThemeData(
-        // useMaterial3: true,
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: PaginaInicio(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class PaginaInicio extends StatefulWidget {
+  const PaginaInicio({Key? key}) : super(key: key);
 
+  @override
+  State<PaginaInicio> createState() => _PaginaInicioState();
+}
+
+class _PaginaInicioState extends State<PaginaInicio> {
+  List<String> images = [
+    "assets/images/avatar1.jpg",
+    "assets/images/avatar2.jpg",
+    "assets/images/avatar3.jpg",
+    "assets/images/avatar4.jpg",
+    "assets/images/avatar5.jpg",
+    "assets/images/avatar6.jpg",
+    "assets/images/avatar7.jpg",
+    "assets/images/avatar8.jpg",
+    "assets/images/avatar9.png",
+    "assets/images/avatar10.jpg",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
+        appBar: AppBar(
+          title: const Text("ListView Jose Beltran"),
         ),
-      ),
-    );
+        body: ListView.builder(
+          itemBuilder: (BuildContext, index) {
+            return Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(images[index]),
+                ),
+                title: Text("This is title"),
+                subtitle: Text("This is subtitle"),
+              ),
+            );
+          },
+          itemCount: images.length,
+          shrinkWrap: true,
+          padding: EdgeInsets.all(5),
+          scrollDirection: Axis.vertical,
+        ));
   }
 }
